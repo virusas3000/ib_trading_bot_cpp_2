@@ -6,7 +6,7 @@ pandas==2.2.2
 numpy==1.26.4
 scikit-learn==1.4.2
 joblib==1.4.2
-alpaca-trade-api==3.3.0
+alpaca-trade-api==3.2.0
 
 # ── Web / API ──────────────────────────────────────────────────────────────
 flask==3.0.3

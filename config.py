@@ -37,6 +37,8 @@ MIN_DOLLAR_VOLUME  = 25_000_000      # skip symbol if 20-bar avg_vol × price < 
 DEFAULT_STOP_PCT   = 0.005           # 0.5% stop for most symbols
 VOLATILE_STOP_PCT  = 0.010           # 1.0% stop for NVDA/TSLA/AMD
 HARD_STOP_PCT      = 0.002           # 0.2% hard-stop failsafe (circuit breaker)
+TARGET1_PCT        = 0.010           # 1.0% target 1
+TARGET2_PCT        = 0.020           # 2.0% target 2
 VOLATILE_SYMBOLS   = ["NVDA", "TSLA", "AMD"]
 
 MIN_SIGNAL_CONFIDENCE  = 0.40        # combined ML+LLM confidence threshold
@@ -73,21 +75,14 @@ MARKET_DB = "market.db"  # 8.7 GB, 28 M rows — ML feature store
 # ── Dashboard ──────────────────────────────────────────────────────────────
 DASHBOARD_HOST      = "0.0.0.0"
 DASHBOARD_PORT      = 8088
-DASHBOARD_CLIENT_ID = 96   # dedicated IB client ID for executions API
+DASHBOARD_CLIENT_ID = 97   # dedicated IB client ID for executions API
 
 # ── Strategies ─────────────────────────────────────────────────────────────
-# Remove from this list one at a time after 5-day paper validation.
-# SUPPORT_RESISTANCE is always active (not listed here).
-DISABLED_STRATEGIES: list[str] = [
-    "MOMENTUM",
-    "SMC_ORDER_BLOCK",
-    "GAP_AND_GO",
-    "MACD_CROSS",
-    "RSI_DIVERGENCE",
-    "ROUND_NUMBER_MAGNET",
-    "VWAP_REVERSION",
-    "HOD_BREAKOUT",
-]
+# Active strategy set (10 total). Remove from DISABLED one at a time after
+# 5-day paper validation. SUPPORT_RESISTANCE is always active.
+# Ported from HK bot: VWAP_RECLAIM, ABCD_PATTERN, FALLEN_ANGEL, BREAKOUT
+# New: COMPRESSION_BREAKOUT
+DISABLED_STRATEGIES: list[str] = []
 
 # SUPPORT_RESISTANCE excluded symbols (net negative P&L confirmed in backtest)
 SR_EXCLUDED_SYMBOLS = ["NVDA", "TSLA", "AMD"]

@@ -7,6 +7,9 @@ from __future__ import annotations
 import asyncio
 import logging
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
+
+HKT = ZoneInfo("Asia/Hong_Kong")
 
 import aiohttp
 
@@ -52,7 +55,7 @@ class TelegramNotifier:
                           entry: float, stop: float, t1: float, t2: float,
                           strategy: str, confidence: float) -> None:
         emoji = "🟢" if side == "LONG" else "🔴"
-        ts    = datetime.now(timezone.utc).strftime("%H:%M UTC")
+        ts    = datetime.now(HKT).strftime("%H:%M HKT")
         text  = (
             f"{emoji} <b>ENTRY {side} {symbol}</b> [{strategy}]\n"
             f"Price: ${entry:.2f}  Qty: {qty}\n"
@@ -66,7 +69,7 @@ class TelegramNotifier:
                          reason: str, strategy: str) -> None:
         emoji = "✅" if pnl >= 0 else "❌"
         pct   = ((exit_price - entry) / entry) * (1 if side == "LONG" else -1) * 100
-        ts    = datetime.now(timezone.utc).strftime("%H:%M UTC")
+        ts    = datetime.now(HKT).strftime("%H:%M HKT")
         text  = (
             f"{emoji} <b>EXIT {side} {symbol}</b> [{reason}]\n"
             f"Entry: ${entry:.2f}  Exit: ${exit_price:.2f}  ({pct:+.2f}%)\n"
